@@ -36,9 +36,6 @@ done
 ## Make sure the host signature of github is known to avoid annoying interactive prompts
 #docker exec -it -w /srv/www/horde horde_web  "mkdir -p  /root/.ssh/ ; touch /root/.ssh/known_hosts ; ssh-keyscan github.com >> /root/.ssh/known_hosts"
 
-# copy basic config
-docker cp ./conf.php horde_web:/srv/www/horde/web/horde/config/conf.php
-
 # set correct user for configs
 docker exec -it horde_web chown -R wwwrun:www /srv/www/horde/web
 
@@ -48,5 +45,4 @@ docker exec -it horde_web /srv/www/horde/web/horde/bin/horde-db-migrate
 docker exec -it horde_web /srv/www/horde/web/horde/bin/horde-db-migrate
 
 # create user from cli
-docker cp ./createUser.php horde_web:/srv/www/horde/web/horde/bin/createUser.php
 docker exec -it horde_web /usr/bin/php /srv/www/horde/web/horde/bin/createUser.php
