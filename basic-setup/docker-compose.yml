@@ -1,0 +1,32 @@
+---
+version: '3.2'
+services:
+  mariadb:
+    image: docker.io/mariadb:10.4
+    container_name: horde_db
+    # Use volumes to have a persistent DB
+    # volumes:
+    #   - ./horde-db/:/var/lib/mysql/
+    environment:
+      - MYSQL_ROOT_PASSWORD=horde
+      - MYSQL_USER=hordedbuser
+      - MYSQL_PASSWORD=horde
+      - MYSQL_DATABASE=horde
+    ports:
+      - "3306:3006"
+    networks:
+      - hordenet
+
+  horde:
+    image: docker.pkg.github.com/maintaina/containers/base:latest-apache
+    container_name: horde_web
+    ports:
+      - "80:80"
+    networks:
+      - hordenet
+    command: /usr/sbin/apachectl -D FOREGROUND
+    tty: true
+
+networks:
+  hordenet:
+    driver: bridge
