@@ -25,10 +25,13 @@ services:
       - MYSQL_USER=${MYSQL_HORDE_USER}
       - MYSQL_PASSWORD=${MYSQL_HORDE_USER_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_HORDE_DB}
+      - MYSQL_HOSTNAME=${MYSQL_HOSTNAME}
       - HORDE_ADMIN_USER=${HORDE_ADMIN_USER}
       - HORDE_ADMIN_PASSWORD=${HORDE_ADMIN_PASSWORD}
+      - EXPAND_CONFIGS=${EXPAND_CONFIGS}
+      - HORDE_MIGRATION_RUNS=${HORDE_MIGRATION_RUNS}
     volumes:
-      - ./web/horde/config/conf.php:/srv/www/horde/web/horde/config/conf.php
+      - ./original_config/apps/:/srv/original_config/apps/
       - ./createUser.php:/srv/www/horde/web/horde/bin/createUser.php
     ports:
       - "80:80"
