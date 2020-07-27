@@ -32,6 +32,8 @@ services:
 #      - ./dovecot/dovecot-sql.conf.ext:/etc/dovecot/dovecot-sql.conf.ext
     networks:
       - hordenet
+#    entrypoint: ["/sbin/tini", "--", "/usr/local/bin/entrypoint.sh"]
+#    command: ["/usr/sbin/dovecot", "-F"]
 
   horde:
     image: docker.pkg.github.com/maintaina/containers/${HORDE_IMAGE}
