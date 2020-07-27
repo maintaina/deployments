@@ -1,0 +1,55 @@
+---
+version: '3.3'
+services:
+  mariadb:
+    image: docker.io/mariadb:${MARIADB_CONTAINER_VERSION}
+    container_name: horde_db
+    # Use volumes to have a persistent DB
+    # volumes:
+    #   - ./horde-db/:/var/lib/mysql/
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_HORDE_USER}
+      - MYSQL_PASSWORD=${MYSQL_HORDE_USER_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_HORDE_DB}
+    ports:
+      - "3306:3006"
+    networks:
+      - hordenet
+
+  dovecot:
+    image: docker.pkg.github.com/maintaina/containers/dovecot-horde:latest
+    container_name: horde_dovecot
+#    volumes:
+#      - ./dovecot/dovecot.conf:/etc/dovecot/dovecot.conf
+#      - ./dovecot/dovecot-sql.conf.ext:/etc/dovecot/dovecot-sql.conf.ext
+    networks:
+      - hordenet
+
+  horde:
+    image: docker.pkg.github.com/maintaina/containers/${HORDE_IMAGE}
+    container_name: horde_web
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_HORDE_USER}
+      - MYSQL_PASSWORD=${MYSQL_HORDE_USER_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_HORDE_DB}
+      - MYSQL_HOSTNAME=${MYSQL_HOSTNAME}
+      - HORDE_ADMIN_USER=${HORDE_ADMIN_USER}
+      - HORDE_ADMIN_PASSWORD=${HORDE_ADMIN_PASSWORD}
+      - EXPAND_CONFIGS=${EXPAND_CONFIGS}
+      - HORDE_MIGRATION_RUNS=${HORDE_MIGRATION_RUNS}
+      - GITHUB_COMPOSER_TOKEN=${GITHUB_COMPOSER_TOKEN}
+    volumes:
+      - ./original_config/apps/:/srv/original_config/apps/
+    ports:
+      - "80:80"
+    networks:
+      - hordenet
+    command: /usr/sbin/apachectl -D FOREGROUND
+    tty: true
+
+networks:
+  hordenet:
+    driver: bridge
+
