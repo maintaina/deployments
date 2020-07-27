@@ -30,9 +30,9 @@ services:
       - HORDE_ADMIN_PASSWORD=${HORDE_ADMIN_PASSWORD}
       - EXPAND_CONFIGS=${EXPAND_CONFIGS}
       - HORDE_MIGRATION_RUNS=${HORDE_MIGRATION_RUNS}
+      - GITHUB_COMPOSER_TOKEN=${GITHUB_COMPOSER_TOKEN}
     volumes:
       - ./original_config/apps/:/srv/original_config/apps/
-      - ./createUser.php:/srv/www/horde/web/horde/bin/createUser.php
     ports:
       - "80:80"
     networks:
