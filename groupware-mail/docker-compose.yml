@@ -35,6 +35,18 @@ services:
 #    entrypoint: ["/sbin/tini", "--", "/usr/local/bin/entrypoint.sh"]
 #    command: ["/usr/sbin/dovecot", "-F"]
 
+  postfix:
+    image: docker.pkg.github.com/maintaina/containers/postfix-horde:latest
+    container_name: horde_postfix
+    environment:
+      - MYSQL_USER=${MYSQL_HORDE_USER}
+      - MYSQL_PASSWORD=${MYSQL_HORDE_USER_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_HORDE_DB}
+      - MYSQL_HOSTNAME=${MYSQL_HOSTNAME}
+      - EXPAND_CONFIGS=${EXPAND_CONFIGS}
+    networks:
+      - hordenet
+
   horde:
     image: docker.pkg.github.com/maintaina/containers/${HORDE_IMAGE}
     container_name: horde_web
