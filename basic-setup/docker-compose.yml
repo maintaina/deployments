@@ -18,7 +18,7 @@ services:
       - hordenet
 
   horde:
-    image: docker.pkg.github.com/maintaina/containers/${HORDE_IMAGE}
+    image: ghcr.io/maintaina/containers/${HORDE_IMAGE}
     container_name: horde_web
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}

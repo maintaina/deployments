@@ -18,7 +18,7 @@ services:
       - hordenet
 
   dovecot:
-    image: docker.pkg.github.com/maintaina/containers/dovecot-horde:latest
+    image: ghcr.io/maintaina/containers/dovecot-horde:latest
     container_name: horde_dovecot
     environment:
       - MYSQL_USER=${MYSQL_HORDE_USER}
@@ -36,7 +36,7 @@ services:
 #    command: ["/usr/sbin/dovecot", "-F"]
 
   postfix:
-    image: docker.pkg.github.com/maintaina/containers/postfix-horde:latest
+    image: ghcr.io/maintaina/containers/postfix-horde:latest
     container_name: horde_postfix
     environment:
       - MYSQL_USER=${MYSQL_HORDE_USER}
@@ -48,7 +48,7 @@ services:
       - hordenet
 
   horde:
-    image: docker.pkg.github.com/maintaina/containers/${HORDE_IMAGE}
+    image: ghcr.io/maintaina/containers/${HORDE_IMAGE}
     container_name: horde_web
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
@@ -73,4 +73,3 @@ services:
 networks:
   hordenet:
     driver: bridge
-
