@@ -16,14 +16,6 @@ The dovecot server uses the horde user database as authentication backend.
 
 # Usage
 
-## Log into Github's Docker Registry first.
-
-- create Personal Access Token under https://github.com/settings/tokens with the scope _read_packages_
-- login on cli using the token as password:
-```bash
-docker login docker.pkg.github.com --username <your-github-username>
-```
-
 ## Configuring the application
 
 See the .env file for configuration. Don't forget to change the passwords first thing before setting up anything but a localhost-only dev scenario.

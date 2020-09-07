@@ -3,14 +3,6 @@
 ## If we have a .credentials file, source it
 source ./.credentials
 
-## if we have a $GITHUB_REGISTRY_USERNAME and GITHUB_REGISTRY_TOKEN ## needs package:read
-if [[ -v GITHUB_REGISTRY_USERNAME ]]
-then
-    echo "Logging in to github docker registry as user $GITHUB_REGISTRY_USERNAME";
-    echo "docker login docker.pkg.github.com --username=\"$GITHUB_REGISTRY_USERNAME\" --password=\"SECRET_TOKEN_OMITTED\""
-    docker login docker.pkg.github.com --username="$GITHUB_REGISTRY_USERNAME" --password="$GITHUB_REGISTRY_TOKEN"
-fi
-
 # start the containers
 docker-compose up -d
 
