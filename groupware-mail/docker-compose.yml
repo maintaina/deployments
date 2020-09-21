@@ -7,6 +7,10 @@ services:
     # Use volumes to have a persistent DB
     # volumes:
     #   - ./horde-db/:/var/lib/mysql/
+    volumes:
+      # fixture for the postfix domain table in the database
+      # TODO: supply domains via environment variable
+      - ./mariadb/domaintable.sql:/docker-entrypoint-initdb.d/postfix-domaintable.sql
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_USER=${MYSQL_HORDE_USER}
@@ -44,6 +48,9 @@ services:
       - MYSQL_DATABASE=${MYSQL_HORDE_DB}
       - MYSQL_HOSTNAME=${MYSQL_HOSTNAME}
       - EXPAND_CONFIGS=${EXPAND_CONFIGS}
+    volumes:
+      - ./postfix/mysql_virtual_mailbox_domains.cf:/etc/postfix/mysql_virtual_mailbox_domains.cf
+      - ./postfix/mysql_virtual_mailbox_maps.cf:/etc/postfix/mysql_virtual_mailbox_maps.cf
     networks:
       - hordenet
 
