@@ -1,5 +1,5 @@
-user = horde_db_user
-password = H0rdePasSS_chang3May
-hosts = horde_db
-dbname = horde
+user = postfix
+password = postfix
+hosts = localhost
+dbname = postfix
 query = SELECT 1 FROM postfix_domains WHERE name='%s'
