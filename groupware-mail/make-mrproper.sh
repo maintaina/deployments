@@ -2,8 +2,9 @@
 
 source .env ||exit
 
+cp mariadb/domaintable.sql.dist mariadb/domaintable.sql
 if [ ! -z "$HORDE_DOMAIN" ]; then
-    sed "s/horde.dev.local/$HORDE_DOMAIN/" mariadb/domaintable.sql.dist > mariadb/domaintable.sql
+    sed -i "s/horde.dev.local/$HORDE_DOMAIN/" mariadb/domaintable.sql
 fi
 
 docker-compose down
