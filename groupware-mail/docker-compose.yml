@@ -31,8 +31,8 @@ services:
       - MYSQL_HOSTNAME=${MYSQL_HOSTNAME}
       - EXPAND_CONFIGS=${EXPAND_CONFIGS}
 ## Use a config volume to provide a completely different config and certs
-#    volumes:
-#      - ./dovecot/dovecot.conf:/etc/dovecot/dovecot.conf
+    volumes:
+      - ./dovecot/dovecot.conf:/etc/dovecot/dovecot.conf
 #      - ./dovecot/dovecot-sql.conf.ext:/etc/dovecot/dovecot-sql.conf.ext
     networks:
       - hordenet
