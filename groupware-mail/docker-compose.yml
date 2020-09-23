@@ -30,10 +30,10 @@ services:
       - MYSQL_DATABASE=${MYSQL_HORDE_DB}
       - MYSQL_HOSTNAME=${MYSQL_HOSTNAME}
       - EXPAND_CONFIGS=${EXPAND_CONFIGS}
-## Use a config volume to provide a completely different config and certs
-    volumes:
-      - ./dovecot/dovecot.conf:/etc/dovecot/dovecot.conf
-      - ./dovecot/dovecot-sql.conf.ext:/etc/dovecot/dovecot-sql.conf.ext
+    ## Use a config volume to provide a completely different config and certs
+    # volumes:
+    #   - ./dovecot/dovecot.conf:/etc/dovecot/dovecot.conf
+    #   - ./dovecot/dovecot-sql.conf.ext:/etc/dovecot/dovecot-sql.conf.ext
     networks:
       - hordenet
 #    entrypoint: ["/sbin/tini", "--", "/usr/local/bin/entrypoint.sh"]
@@ -48,9 +48,9 @@ services:
       - MYSQL_DATABASE=${MYSQL_HORDE_DB}
       - MYSQL_HOSTNAME=${MYSQL_HOSTNAME}
       - EXPAND_CONFIGS=${EXPAND_CONFIGS}
-    volumes:
-      - ./postfix/mysql_virtual_mailbox_domains.cf:/etc/postfix/mysql_virtual_mailbox_domains.cf
-      - ./postfix/mysql_virtual_mailbox_maps.cf:/etc/postfix/mysql_virtual_mailbox_maps.cf
+    # volumes:
+    #   - ./postfix/mysql_virtual_mailbox_domains.cf:/etc/postfix/mysql_virtual_mailbox_domains.cf
+    #   - ./postfix/mysql_virtual_mailbox_maps.cf:/etc/postfix/mysql_virtual_mailbox_maps.cf
     networks:
       - hordenet
 
