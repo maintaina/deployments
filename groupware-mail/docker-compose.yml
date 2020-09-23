@@ -33,7 +33,7 @@ services:
 ## Use a config volume to provide a completely different config and certs
     volumes:
       - ./dovecot/dovecot.conf:/etc/dovecot/dovecot.conf
-#      - ./dovecot/dovecot-sql.conf.ext:/etc/dovecot/dovecot-sql.conf.ext
+      - ./dovecot/dovecot-sql.conf.ext:/etc/dovecot/dovecot-sql.conf.ext
     networks:
       - hordenet
 #    entrypoint: ["/sbin/tini", "--", "/usr/local/bin/entrypoint.sh"]

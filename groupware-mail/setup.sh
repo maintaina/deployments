@@ -19,3 +19,5 @@ docker exec horde_postfix postconf smtpd_recipient_restrictions=reject_non_fqdn_
 docker exec horde_postfix sh -c "echo 'submission inet n       -       n       -       -       smtpd' >> /etc/postfix/master.cf"
 
 docker exec horde_postfix postconf maillog_file=/dev/stdout
+
+docker exec horde_postfix postfix reload
