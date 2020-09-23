@@ -379,17 +379,24 @@
 /* Example configurations: */
 
 // IMAP server
+
 $servers['imap'] = array(
-    // ENABLED by default; will connect to IMAP port on local server
     'disabled' => false,
     'name' => 'IMAP Server',
     'hostspec' => 'horde_dovecot',
     'hordeauth' => true,
     'protocol' => 'imap',
     'port' => 143,
-    // Plaintext logins are disabled by default on IMAP servers (see RFC 3501
-    // [6.2.3]), so TLS is the only guaranteed authentication available by
-    // default.
     'secure' => 'tls',
+    'maildomain' => 'horde.dev.local',
+    'smtp' => array(
+        'auth' => true,
+        'debug' => false,
+        'horde_auth' => true,
+        'localhost' => 'localhost',
+        'host' => 'horde_postfix',
+        'port' => 587,
+        'secure' => 'none',
+        'lmtp' => false,
+    ),
 );
-
