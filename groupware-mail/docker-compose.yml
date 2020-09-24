@@ -48,6 +48,7 @@ services:
       - MYSQL_DATABASE=${MYSQL_HORDE_DB}
       - MYSQL_HOSTNAME=${MYSQL_HOSTNAME}
       - EXPAND_CONFIGS=${EXPAND_CONFIGS}
+      - HORDE_DOMAIN=${HORDE_DOMAIN}
     # volumes:
     #   - ./postfix/mysql_virtual_mailbox_domains.cf:/etc/postfix/mysql_virtual_mailbox_domains.cf
     #   - ./postfix/mysql_virtual_mailbox_maps.cf:/etc/postfix/mysql_virtual_mailbox_maps.cf
