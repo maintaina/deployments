@@ -49,6 +49,7 @@ services:
       - MYSQL_HOSTNAME=${MYSQL_HOSTNAME}
       - EXPAND_CONFIGS=${EXPAND_CONFIGS}
       - HORDE_DOMAIN=${HORDE_DOMAIN}
+      - CONTAINER_PREFIX=${CONTAINER_PREFIX}
     # volumes:
     #   - ./postfix/mysql_virtual_mailbox_domains.cf:/etc/postfix/mysql_virtual_mailbox_domains.cf
     #   - ./postfix/mysql_virtual_mailbox_maps.cf:/etc/postfix/mysql_virtual_mailbox_maps.cf
