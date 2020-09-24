@@ -12,4 +12,4 @@ Various premade deployments to develop or run Horde environments
 Horde with webmail, calendar, tasks, notes, etc.
 * Apps come with some generic config
 * Database schema autoinstalls
-* Webmail will connect to a stand-in imap container (no SMTP yet)
+* Webmail will connect to a Dovecot and a Postfix container
