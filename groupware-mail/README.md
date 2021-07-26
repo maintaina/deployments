@@ -36,6 +36,27 @@ Any additional configuration like a `motd.local` file can be placed in the
 `original_config/apps/$app` for other apps. Existing files will not be
 overwritten.
 
+### Configuring the Imap service
+
+#### Expose the Dovecot port
+
+- Uncomment the imap port 143 in the docker-compose.yml or docker-compose.override.yml file
+
+#### SSL/TLS
+
+
+- Add files cert.pem and key.pem to the dovecot/ folder
+
+OR
+
+- Provide other certificate files
+- edit dovecot/dovecot.conf file SSL/TLS related settings
+
+#### Primary Domain
+
+- fill in the HORDE_DOMAIN variable in .env file
+
+
 ### Startup
 
 Run `./make-mrproper.sh` inside the directory with the `docker-compose.yml`

@@ -16,8 +16,9 @@ services:
       - MYSQL_USER=${MYSQL_HORDE_USER}
       - MYSQL_PASSWORD=${MYSQL_HORDE_USER_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_HORDE_DB}
-    ports:
-      - "3306:3006"
+## Uncomment to expose database
+#    ports:
+#      - "3306:3006"
     networks:
       - hordenet
 
@@ -38,6 +39,9 @@ services:
       - hordenet
 #    entrypoint: ["/sbin/tini", "--", "/usr/local/bin/entrypoint.sh"]
 #    command: ["/usr/sbin/dovecot", "-F"]
+## Uncomment to expose imap port to all host interfaces
+#    ports:
+#    - "143:143"
 
   postfix:
     image: ghcr.io/maintaina/containers/postfix-horde:latest
@@ -55,6 +59,10 @@ services:
     #   - ./postfix/mysql_virtual_mailbox_maps.cf:/etc/postfix/mysql_virtual_mailbox_maps.cf
     networks:
       - hordenet
+## Uncomment to expose SMTP and SMTP-Submission ports
+#    ports:
+#    - "25:25"
+#    - "587:587"
 
   horde:
     image: ghcr.io/maintaina/containers/${HORDE_IMAGE}
@@ -72,8 +80,8 @@ services:
       - GITHUB_COMPOSER_TOKEN=${GITHUB_COMPOSER_TOKEN}
     volumes:
       - ./original_config/apps/:/srv/original_config/apps/
-    ports:
-      - "80:80"
+#    ports:
+#      - "80:80"
     networks:
       - hordenet
     command: /usr/sbin/apachectl -D FOREGROUND
