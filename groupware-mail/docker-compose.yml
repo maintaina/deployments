@@ -79,7 +79,7 @@ services:
       - HORDE_MIGRATION_RUNS=${HORDE_MIGRATION_RUNS}
       - GITHUB_COMPOSER_TOKEN=${GITHUB_COMPOSER_TOKEN}
     volumes:
-      - ./original_config/apps/:/srv/original_config/apps/
+      - ./original_config/apps/:/srv/original_config/apps
       ## Uncomment these two to provide your own letsencrypt certs and vhosts file
       ## - /etc/letsencrypt/:/etc/letsencrypt/
       ## Don't forget to copy the template to a .conf file and edit all relevant values
