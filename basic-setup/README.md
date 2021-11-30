@@ -12,7 +12,7 @@ Any additional config like a motd.local file can be placed in the original_confi
 
 ## Startup
 
-Run `docker-compose up` inside the directory with the docker-compose.yml file
+Run `docker-compose up -d` inside the directory with the docker-compose.yml file
 
 The container entrypoint will copy original_config\apps\$app files to each $app's config/ dir. It will not overwrite existing files.
 
