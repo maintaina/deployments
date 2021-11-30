@@ -92,3 +92,5 @@ bin/stop_containser.sh
 ````
 ./make_mrproper.sh
 ````
+
+**NB:** the ````bin/```` directory contains some simple scripts to stop and start the containers. This is usefull if you do not want to destroy your containers (when runnign ````docker-compose down````)v
