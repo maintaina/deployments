@@ -1,6 +1,8 @@
 # deployments
 Various premade deployments to develop or run Horde environments
 
+For more information on each deployment-setup, please read the README.md file in the respective directories.
+
 ## basic-setup
 
 * The Horde Base app with mariadb database connection and SQL Auth, an initial user injected.
