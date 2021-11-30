@@ -1,25 +1,33 @@
 ---
-version: '3.2'
+version: '3.3'
 services:
   mariadb:
     image: docker.io/mariadb:${MARIADB_CONTAINER_VERSION}
-    container_name: horde_db
+    container_name: ${MYSQL_HOSTNAME}
+    hostname: ${MYSQL_HOSTNAME}
     # Use volumes to have a persistent DB
     # volumes:
     #   - ./horde-db/:/var/lib/mysql/
+    volumes:
+      # fixture for the postfix domain table in the database
+      # TODO: supply domains via environment variable
+      - ./mariadb/domaintable.sql:/docker-entrypoint-initdb.d/postfix-domaintable.sql
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_USER=${MYSQL_HORDE_USER}
       - MYSQL_PASSWORD=${MYSQL_HORDE_USER_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_HORDE_DB}
-    ports:
-      - "3306:3006"
+    expose:
+      - 3306
+   ## Uncomment to expose database ports
+   #ports:
+   #  - "3306:3006"
     networks:
       - hordenet
 
   horde:
     image: ghcr.io/maintaina/containers/${HORDE_IMAGE}
-    container_name: horde_web
+    container_name: ${CONTAINER_PREFIX}horde_web
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_USER=${MYSQL_HORDE_USER}
@@ -33,6 +41,8 @@ services:
       - GITHUB_COMPOSER_TOKEN=${GITHUB_COMPOSER_TOKEN}
     volumes:
       - ./original_config/apps/:/srv/original_config/apps/
+    expose:
+      - 80
     ports:
       - "80:80"
     networks:
@@ -42,4 +52,5 @@ services:
 
 networks:
   hordenet:
+    name: ${CONTAINER_PREFIX}hordenet
     driver: bridge
