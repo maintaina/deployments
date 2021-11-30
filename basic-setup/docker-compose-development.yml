@@ -1,0 +1,7 @@
+version: '3.2'
+services:
+  horde:
+    build: ./dev/
+    image: "basic-setup/hordedevelop"
+    environment:
+      - HORDE_IMAGE=${HORDE_IMAGE}
