@@ -3,10 +3,11 @@ version: '3.3'
 services:
   mariadb:
     image: docker.io/mariadb:${MARIADB_CONTAINER_VERSION}
-    container_name: horde_db
+    container_name: ${MYSQL_HOSTNAME}
+    hostname: ${MYSQL_HOSTNAME}
     # Use volumes to have a persistent DB
-    # volumes:
-    # - ./horde-db/:/var/lib/mysql/
+    volumes:
+     - ./horde-db/:/var/lib/mysql/
     volumes:
       # fixture for the postfix domain table in the database
       # TODO: supply domains via environment variable
@@ -16,15 +17,17 @@ services:
       - MYSQL_USER=${MYSQL_HORDE_USER}
       - MYSQL_PASSWORD=${MYSQL_HORDE_USER_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_HORDE_DB}
-## Uncomment to expose database
-#    ports:
-#      - "3306:3006"
+## Uncomment to expose database ports
+   #ports:
+   #  - "3306:3006"
+    expose:
+      - 3306
     networks:
       - hordenet
 
   dovecot:
     image: ghcr.io/maintaina/containers/dovecot-horde:latest
-    container_name: horde_dovecot
+    container_name: ${CONTAINER_PREFIX}horde_dovecot
     environment:
       - MYSQL_USER=${MYSQL_HORDE_USER}
       - MYSQL_PASSWORD=${MYSQL_HORDE_USER_PASSWORD}
@@ -45,7 +48,7 @@ services:
 
   postfix:
     image: ghcr.io/maintaina/containers/postfix-horde:latest
-    container_name: horde_postfix
+    container_name: ${CONTAINER_PREFIX}horde_postfix
     environment:
       - MYSQL_USER=${MYSQL_HORDE_USER}
       - MYSQL_PASSWORD=${MYSQL_HORDE_USER_PASSWORD}
@@ -66,7 +69,7 @@ services:
 
   horde:
     image: ghcr.io/maintaina/containers/${HORDE_IMAGE}
-    container_name: horde_web
+    container_name: ${CONTAINER_PREFIX}horde_web
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_USER=${MYSQL_HORDE_USER}
@@ -84,10 +87,12 @@ services:
       ## - /etc/letsencrypt/:/etc/letsencrypt/
       ## Don't forget to copy the template to a .conf file and edit all relevant values
       ## - ./vhosts.d/:/etc/apache2/vhosts.d/
-    ## Uncomment if you want to expose ports directly rather than through a frontend service
-    #ports:
-    #  - "80:80"
-    #  - "443:443"
+    expose:
+      - 80
+    ## Comment if you do not want to expose ports directly and rather use a frontend service
+    ports:
+      - "80:80"
+    # - "443:443"
     networks:
       - hordenet
     command: /usr/sbin/apachectl -D FOREGROUND
@@ -95,4 +100,5 @@ services:
 
 networks:
   hordenet:
+    name: ${CONTAINER_PREFIX}hordenet
     driver: bridge

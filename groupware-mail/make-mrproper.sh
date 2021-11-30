@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source .env || exit
+source ./.env || exit
 
 cp mariadb/domaintable.sql.dist mariadb/domaintable.sql
 
@@ -23,10 +23,17 @@ if [[ -v CONTAINER_PREFIX && -n "$CONTAINER_PREFIX" ]]; then
     sed -i "s/servers\['imap'\]\['smtp'\]\['host'\].*/servers['imap']['smtp']['host'] = '${CONTAINER_PREFIX}_postfix';/g" original_config/apps/imp/backends.local.php
 fi
 
+echo "Stopping and removing containers"
+docker stop ${CONTAINER_PREFIX}horde_web ${CONTAINER_PREFIX}horde_db 2>/dev/null
+docker rm ${CONTAINER_PREFIX}horde_web 2>/dev/null
+## Should do the same trick and also remove network
 docker-compose down
+echo "Updating Horde Base Image"
 docker-compose pull
-docker-compose build
+echo "Starting composer deployment"
+# start the containers
 docker-compose up -d
 
 # cleanup
 rm mariadb/domaintable.sql
+echo "cleaned up sql-script"
