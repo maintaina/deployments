@@ -14,6 +14,8 @@ services:
       - MYSQL_DATABASE=${MYSQL_HORDE_DB}
     ports:
       - "3306:3006"
+    expose:
+      - 3360
     networks:
       - hordenet
 
@@ -32,6 +34,7 @@ services:
       - HORDE_MIGRATION_RUNS=${HORDE_MIGRATION_RUNS}
       - GITHUB_COMPOSER_TOKEN=${GITHUB_COMPOSER_TOKEN}
       - ENABLE_DEVELOPER_MODE=${ENABLE_DEVELOPER_MODE}
+      - CUSTOM_TOOLS=${CUSTOM_TOOLS}
     volumes:
       - ./original_config/apps/:/srv/original_config/apps/
     ports:
