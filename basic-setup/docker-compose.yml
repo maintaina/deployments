@@ -3,7 +3,7 @@ version: '3.2'
 services:
   mariadb:
     image: docker.io/mariadb:${MARIADB_CONTAINER_VERSION}
-    container_name: horde_db
+    container_name: ${MYSQL_HOSTNAME}
     # Use volumes to have a persistent DB
     # volumes:
     #   - ./horde-db/:/var/lib/mysql/
@@ -14,12 +14,14 @@ services:
       - MYSQL_DATABASE=${MYSQL_HORDE_DB}
     ports:
       - "3306:3006"
+    expose:
+      - 3360
     networks:
       - hordenet
 
   horde:
     image: ghcr.io/maintaina/containers/${HORDE_IMAGE}
-    container_name: horde_web
+    container_name: ${PREFIX_CONTAINER}horde_web
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_USER=${MYSQL_HORDE_USER}
@@ -31,6 +33,8 @@ services:
       - EXPAND_CONFIGS=${EXPAND_CONFIGS}
       - HORDE_MIGRATION_RUNS=${HORDE_MIGRATION_RUNS}
       - GITHUB_COMPOSER_TOKEN=${GITHUB_COMPOSER_TOKEN}
+      - ENABLE_DEVELOPER_MODE=${ENABLE_DEVELOPER_MODE}
+      - CUSTOM_TOOLS=${CUSTOM_TOOLS}
     volumes:
       - ./original_config/apps/:/srv/original_config/apps/
     ports:
@@ -42,4 +46,5 @@ services:
 
 networks:
   hordenet:
+    name: ${PREFIX_CONTAINER}hordenet
     driver: bridge
