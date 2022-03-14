@@ -7,11 +7,11 @@ services:
     hostname: ${MYSQL_HOSTNAME}
     # Use volumes to have a persistent DB
     volumes:
-     - ./horde-db/:/var/lib/mysql/
+      - ./horde-db/:/var/lib/mysql/:Z
     volumes:
       # fixture for the postfix domain table in the database
       # TODO: supply domains via environment variable
-      - ./mariadb/domaintable.sql:/docker-entrypoint-initdb.d/postfix-domaintable.sql
+      - ./mariadb/domaintable.sql:/docker-entrypoint-initdb.d/postfix-domaintable.sql:Z
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_USER=${MYSQL_HORDE_USER}
@@ -20,8 +20,8 @@ services:
 ## Uncomment to expose database ports
    #ports:
    #  - "3306:3006"
-    expose:
-      - 3306
+   #expose:
+   #   - 3306
     networks:
       - hordenet
 
@@ -84,7 +84,7 @@ services:
       - ENABLE_DEVELOPER_MODE=${ENABLE_DEVELOPER_MODE}
       - CUSTOM_TOOLS=${CUSTOM_TOOLS}
     volumes:
-      - ./original_config/apps/:/srv/original_config/apps
+      - ./original_config/apps/:/srv/original_config/apps:Z
       ## Uncomment these two to provide your own letsencrypt certs and vhosts file
       ## - /etc/letsencrypt/:/etc/letsencrypt/
       ## Don't forget to copy the template to a .conf file and edit all relevant values
