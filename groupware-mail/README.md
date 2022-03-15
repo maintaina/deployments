@@ -71,7 +71,13 @@ inject an initial user into the authentication backend.
 
 ## Running the environment with developer-tools installed in container
 
-Adapt the .env file and set ````ENABLE_DEVELOPER_MODE```` explicitly to yes (it will be "no" per default)
+Adapt the .env file and set ````ENABLE_DEVELOPER_MODE```` explicitly to **yes** (it will be "no" per default)
+
+You can also add custom tools by adding them after the CUSTOM_TOOLS seperated by emtpy spaces like so:
+
+````ssh
+CUSTOM_TOOLS=neofetch sl
+````
 
 ## Running multiple deployments:
 
