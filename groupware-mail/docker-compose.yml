@@ -89,8 +89,8 @@ services:
       ## - /etc/letsencrypt/:/etc/letsencrypt/
       ## Don't forget to copy the template to a .conf file and edit all relevant values
       ## - ./vhosts.d/:/etc/apache2/vhosts.d/
-    expose:
-      - 80
+   #expose:
+   #  - 80
     ## Comment if you do not want to expose ports directly and rather use a frontend service
     ports:
       - "80:80"
