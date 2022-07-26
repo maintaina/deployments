@@ -1,5 +1,5 @@
 ---
-version: '3.3'
+version: '3.5'
 services:
   mariadb:
     image: docker.io/mariadb:${MARIADB_CONTAINER_VERSION}
@@ -40,7 +40,7 @@ services:
     #   - ./dovecot/dovecot-sql.conf.ext:/etc/dovecot/dovecot-sql.conf.ext
     networks:
       - hordenet
-#    entrypoint: ["/sbin/tini", "--", "/usr/local/bin/entrypoint.sh"]
+#    entrypoint: ["/usr/bin/tini", "--", "/usr/local/bin/entrypoint.sh"]
 #    command: ["/usr/sbin/dovecot", "-F"]
 ## Uncomment to expose imap port to all host interfaces
 #    ports:
