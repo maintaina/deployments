@@ -18,9 +18,9 @@ fi
 
 # set the CONTAINER_PREFIX in Horde's and Imp's config files
 if [[ -v CONTAINER_PREFIX && -n "$CONTAINER_PREFIX" ]]; then
-    sed -i "s/conf\['mailer'\]\['params'\]\['host'\].*/conf['mailer']['params']['host'] = '${CONTAINER_PREFIX}_postfix';/g" original_config/apps/horde/conf.php
-    sed -i "s/servers\['imap'\]\['hostspec'\].*/servers['imap']['hostspec'] = '${CONTAINER_PREFIX}_dovecot';/g" original_config/apps/imp/backends.local.php
-    sed -i "s/servers\['imap'\]\['smtp'\]\['host'\].*/servers['imap']['smtp']['host'] = '${CONTAINER_PREFIX}_postfix';/g" original_config/apps/imp/backends.local.php
+    sed -i "s/conf\['mailer'\]\['params'\]\['host'\].*/conf['mailer']['params']['host'] = '${CONTAINER_PREFIX}horde_postfix';/g" original_config/apps/horde/conf.php
+    sed -i "s/servers\['imap'\]\['hostspec'\].*/servers['imap']['hostspec'] = '${CONTAINER_PREFIX}horde_dovecot';/g" original_config/apps/imp/backends.local.php
+    sed -i "s/servers\['imap'\]\['smtp'\]\['host'\].*/servers['imap']['smtp']['host'] = '${CONTAINER_PREFIX}horde_postfix';/g" original_config/apps/imp/backends.local.php
 fi
 
 echo "Stopping and removing containers"

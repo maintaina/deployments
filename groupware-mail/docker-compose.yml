@@ -8,7 +8,6 @@ services:
     # Use volumes to have a persistent DB
     volumes:
       - ./horde-db/:/var/lib/mysql/:Z
-    volumes:
       # fixture for the postfix domain table in the database
       # TODO: supply domains via environment variable
       - ./mariadb/domaintable.sql:/docker-entrypoint-initdb.d/postfix-domaintable.sql:Z
@@ -26,6 +25,7 @@ services:
       - hordenet
 
   dovecot:
+    hostname: ${DOVECOT_HOSTNAME}
     image: ghcr.io/maintaina/containers/dovecot-horde:latest
     container_name: ${CONTAINER_PREFIX}horde_dovecot
     environment:
@@ -47,6 +47,7 @@ services:
 #    - "143:143"
 
   postfix:
+    hostname: ${POSTFIX_HOSTNAME}
     image: ghcr.io/maintaina/containers/postfix-horde:latest
     container_name: ${CONTAINER_PREFIX}horde_postfix
     environment:
@@ -93,7 +94,11 @@ services:
    #  - 80
     ## Comment if you do not want to expose ports directly and rather use a frontend service
     ports:
+    ## Only bind to localhost port 80 http rather than all interfaces
+    #  - "127.0.0.1:80:80"
+    ## Bind to port 80 http on all interfaces
       - "80:80"
+    ## Bind to port 443 https all interfaces
     # - "443:443"
     networks:
       - hordenet
