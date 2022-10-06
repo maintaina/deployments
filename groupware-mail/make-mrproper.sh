@@ -21,6 +21,9 @@ if [[ -v CONTAINER_PREFIX && -n "$CONTAINER_PREFIX" ]]; then
     sed -i "s/conf\['mailer'\]\['params'\]\['host'\].*/conf['mailer']['params']['host'] = '${CONTAINER_PREFIX}horde_postfix';/g" original_config/apps/horde/conf.php
     sed -i "s/servers\['imap'\]\['hostspec'\].*/servers['imap']['hostspec'] = '${CONTAINER_PREFIX}horde_dovecot';/g" original_config/apps/imp/backends.local.php
     sed -i "s/servers\['imap'\]\['smtp'\]\['host'\].*/servers['imap']['smtp']['host'] = '${CONTAINER_PREFIX}horde_postfix';/g" original_config/apps/imp/backends.local.php
+    sed -i "s/'horde.dev.local'/'${HORDE_DOMAIN}'/g" dovecot/dovecot-sql.conf.ext
+    sed -i "s/= localhost/= ${MYSQL_HOSTNAME}/g" postfix/mysql_virtual_mailbox_maps.cf
+    sed -i "s/= localhost/= ${MYSQL_HOSTNAME}/g" postfix/mysql_virtual_mailbox_domains.cf
 fi
 
 echo "Stopping and removing containers"
